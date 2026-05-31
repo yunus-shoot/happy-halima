@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Sayang!</title>
+    <!-- Import Google Fonts untuk gaya tulisan yang estetik -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === PENGATURAN DASAR === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            color: #333;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Garis penghubung antar layer */
+        .connecting-line {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #ff9a9e, #fecfef, #a1c4fd);
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        /* Animasi saat di-scroll */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+        
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* === LAYER 1: HERO SECTION === */
+        #layer1 {
+            /* GANTI URL DI BAWAH INI DENGAN FOTO PACAR KAMU (bisa link imgur/google drive) */
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,1) 30%, rgba(255,255,255,0.2) 70%, transparent),
+                url('foto/halima.jpeg');
+            background-size: cover;
+            background-position: right center;
+            background-repeat: no-repeat;
+            align-items: flex-start;
+            padding-left: 10%;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #d88c9a;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 400px;
+        }
+
+        /* === LAYER 2: PESAN ROMANTIS === */
+        #layer2 {
+            background: radial-gradient(circle at center, rgba(255,236,239,0.8) 0%, transparent 70%);
+        }
+
+        .love-letter {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            max-width: 600px;
+            text-align: center;
+            border-top: 5px solid #ff9a9e;
+        }
+
+        .love-letter p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .love-letter h2 {
+            font-family: 'Playfair Display', serif;
+            color: #d88c9a;
+            margin-bottom: 20px;
+        }
+
+        /* === LAYER 3: GALERI KENANGAN === */
+        .gallery-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            max-width: 800px;
+            margin-top: 30px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 10px 10px 20px 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: rotate(-3deg);
+            transition: transform 0.3s;
+        }
+
+        .polaroid:nth-child(even) {
+            transform: rotate(4deg);
+        }
+
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0);
+            z-index: 10;
+        }
+
+        .polaroid img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        /* === LAYER 4: POP WISHES === */
+        .bubbles-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .bubble {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at 30% 30%, #fff, #fecfef);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-weight: 600;
+            color: #d88c9a;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(254, 207, 239, 0.5);
+            animation: float 3s ease-in-out infinite;
+            transition: transform 0.2s;
+            user-select: none;
+        }
+
+        .bubble:nth-child(2) { animation-delay: 0.5s; background: radial-gradient(circle at 30% 30%, #fff, #a1c4fd); color: #5a7bba; box-shadow: 0 10px 20px rgba(161, 196, 253, 0.5);}
+        .bubble:nth-child(3) { animation-delay: 1s; background: radial-gradient(circle at 30% 30%, #fff, #fbc2eb); }
+
+        .bubble:active {
+            transform: scale(0.9);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Modal untuk isi Gelembung */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            transform: scale(0.7);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .modal.active { display: flex; }
+        .modal.active .modal-content { transform: scale(1); opacity: 1; }
+        
+        .close-btn {
+            margin-top: 20px;
+            padding: 8px 20px;
+            background: #d88c9a;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* === LAYER 5: CLOSING === */
+        #layer5 {
+            text-align: center;
+            background: linear-gradient(to top, rgba(254, 207, 239, 0.5), transparent);
+        }
+
+        .wa-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 30px;
+            background-color: #25D366; /* Warna khas WhatsApp */
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .wa-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Responsivitas untuk layar HP */
+        @media (max-width: 768px) {
+            #layer1 {
+                background-image: 
+                    linear-gradient(to bottom, rgba(255,255,255,1) 40%, rgba(255,255,255,0.2) 100%),
+                    url('foto/halima.jpeg');
+                background-position: center bottom;
+                padding-left: 20px;
+                text-align: center;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 20vh;
+            }
+            h1 { font-size: 2.5rem; }
+            .connecting-line { left: 10px; }
+            .love-letter { padding: 25px; }
+            /* Gallery: stack vertically and reduce image size on small screens */
+            .gallery-container {
+                gap: 12px;
+                max-width: 100%;
+                padding: 0 16px;
+            }
+
+            .polaroid {
+                transform: rotate(0);
+                padding: 8px;
+            }
+
+            .polaroid img {
+                width: 140px;
+                height: 140px;
+            }
+
+            /* Bubbles: smaller and wrap nicely */
+            .bubbles-container { gap: 12px; }
+            .bubble {
+                width: 90px;
+                height: 90px;
+                font-size: 0.9rem;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            }
+
+            /* Modal: full-screen friendly */
+            .modal-content {
+                max-width: 92%;
+                padding: 24px;
+                border-radius: 14px;
+            }
+
+            /* WhatsApp button: full width and thumb-friendly */
+            .wa-btn {
+                display: block;
+                width: calc(100% - 40px);
+                max-width: 420px;
+                margin: 20px auto 0 auto;
+                padding: 14px 20px;
+                font-size: 1rem;
+            }
+
+            /* Reduce modal text size slightly for narrow screens */
+            #layer3 p, .love-letter p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Garis estetika penghubung antar seksi -->
+    <div class="connecting-line"></div>
+
+    <!-- LAYER 1: HERO -->
+    <section id="layer1" class="fade-up">
+        <h1>Selamat<br>Ulang Tahun<br>Cintaku!</h1>
+        <p class="subtitle">Kisah kita, dimulai di sini. Hari ini tanggal 1, hari yang paling spesial buat aku.</p>
+        <p style="margin-top: 20px; font-size: 0.9rem; color: #888; animation: float 2s infinite;">Scroll ke bawah ya ↓</p>
+    </section>
+
+    <!-- LAYER 2: PESAN ROMANTIS -->
+    <section id="layer2" class="fade-up">
+        <div class="love-letter">
+            <h2>Untuk Kamu yang Tersayang...</h2>
+            <p>Selamat ulang tahun, kesayanganku! 💖 Hari ini, tepat di tanggal 1 yang sangat spesial ini, aku cuma mau mengingatkan betapa bersyukurnya aku memilikimu dalam hidupku.</p>
+            <p>Kehadiranmu membawa warna yang luar biasa. Setiap detik yang aku habiskan sama kamu rasanya selalu lebih indah. Kamu bukan cuma sekadar pasangan buat aku, tapi juga sahabat, tempat pulang yang paling nyaman, dan alasan terbesarku buat selalu tersenyum. 🥰</p>
+            <p>Di usiamu yang baru ini, doa terbaikku akan selalu mengiringi setiap langkahmu. Semoga kamu selalu diberikan kesehatan, kebahagiaan yang nggak ada habisnya, dan kelancaran dalam segala hal.</p>
+        </div>
+    </section>
+
+    <!-- LAYER 3: GALERI KENANGAN -->
+    <section id="layer3" class="fade-up">
+        <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem; color: #d88c9a; text-align: center;">Galeri Kenangan Kita</h2>
+        <p style="text-align: center; color: #666;">Momen-momen indah yang tak terlupakan.</p>
+        
+        <div class="gallery-container">
+            <!-- Ganti URL gambar dengan foto-foto kenangan kalian -->
+            <div class="polaroid">
+                <img src="foto/BERSAMA 1.jpeg" alt="Kenangan 1">
+            </div>
+            <div class="polaroid">
+                <img src="foto/BERSAMA 2.jpeg" alt="Kenangan 2">
+            </div>
+            <div class="polaroid">
+                <img src="foto/BERSAMA 3.jpeg" alt="Kenangan 3">
+            </div>
+        </div>
+    </section>
+
+    <!-- LAYER 4: POP WISHES -->
+    <section id="layer4" class="fade-up">
+        <div class="love-letter" style="background: transparent; box-shadow: none; border: none; text-align: center;">
+            <h2 style="font-size: 2.5rem;">Pop Wishes Untukmu</h2>
+            <p>Ketuk gelembung di bawah ini untuk melihat harapan rahasia dariku.</p>
+            
+            <div class="bubbles-container">
+                <div class="bubble" onclick="openModal('Semoga semua cita-cita, mimpi, dan harapan yang sedang kamu perjuangkan bisa segera terwujud satu per satu. ✨')">Ketuk Aku!</div>
+                <div class="bubble" onclick="openModal('Terima kasih ya sudah jadi sosok yang hebat, sabar, pengertian, dan penuh kasih sayang. I love you! ❤️')">Kejutan!</div>
+                <div class="bubble" onclick="openModal('Mari kita lewati lebih banyak hari, bulan, dan tahun bersama-sama, menciptakan lebih banyak kenangan indah berdua. 💑')">Buka Ini!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Gelembung -->
+    <div class="modal" id="wishModal">
+        <div class="modal-content">
+            <h3 style="font-family: 'Playfair Display'; color: #d88c9a; margin-bottom: 15px;">Harapanku...</h3>
+            <p id="modalText">Pesan rahasia.</p>
+            <button class="close-btn" onclick="closeModal()">Tutup</button>
+        </div>
+    </div>
+
+    <!-- LAYER 5: CLOSING & WA -->
+    <section id="layer5" class="fade-up">
+        <h2 style="font-family: 'Playfair Display'; font-size: 3rem; color: #d88c9a;">Menuju Masa Depan</h2>
+        <p style="font-size: 1.2rem; color: #555; margin-top: 10px; max-width: 500px; text-align: center;">
+            I love you more than words can say.<br>Selamat bertambah usia, cintaku! 🎂🥳❤️
+        </p>
+        
+        <!-- GANTI NOMOR WA DI BAWAH INI DENGAN NOMOR KAMU -->
+        <!-- Format: 628xxxxxxxx (tanpa angka 0 di depan, ganti dengan 62) -->
+        <a href="https://wa.me/6281234567890?text=Hai%20sayang!%20Makasih%20banyak%20ya%20buat%20ucapan%20website-nya,%20aku%20suka%20banget!%20%E2%9D%A4%EF%B8%8F" class="wa-btn" target="_blank">
+            Balas Pesan Ini ke WA
+        </a>
+    </section>
+
+    <!-- SCRIPT ANIMASI & MODAL -->
+    <script>
+        // Animasi muncul saat di scroll (Intersection Observer)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Script untuk Pop Wishes (Modal)
+        const modal = document.getElementById('wishModal');
+        const modalText = document.getElementById('modalText');
+
+        function openModal(text) {
+            modalText.innerHTML = text;
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        // Tutup modal jika user klik area luar kotak
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
